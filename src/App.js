@@ -69,6 +69,7 @@ class App extends Component {
 
     return (
       <div className="App" style={{backgroundColor: this.state.base00, minHeight: '100vh'}}>
+        <h1 style={{color: this.state.base07}}>Base16 Generator</h1>
         <Favicon url={faviconUrl}/>
         <table>
           <tbody>

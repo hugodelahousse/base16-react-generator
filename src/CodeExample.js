@@ -38,7 +38,7 @@ export function CodeExample({colors})
       "color": colors.base08
     },
     "hljs-selector-class": {
-      "color": colors.base08
+      "color": colors.base0A
     },
     "hljs-number": {
       "color": colors.base09
@@ -59,7 +59,7 @@ export function CodeExample({colors})
       "color": colors.base09
     },
     "hljs-params": {
-      "color": colors.base09
+      "color": colors.base0F
     },
     "hljs-string": {
       "color": colors.base0B
@@ -114,36 +114,23 @@ export function CodeExample({colors})
   };
 
   return (
-    <div style={{backgroundColor: colors.base00}}>
-      <SyntaxHighlighter language='ruby' style={style}>
-        {`require "gem"
+    <div style={{backgroundColor: colors.base00, padding: '2.5em'}}>
+      <SyntaxHighlighter language='javascript' style={style}>
+        {
+`import {Component} from 'react';
 
-string = "base16"
-symbol = :base16
-fixnum = 0
-float  = 0.00
-array  = Array.new
-array  = ['chris', 85]
-hash   = {"test"=> "test"}
-regexp = /[abc]/
+class App extends Component {
+    // I am a comment
 
-# This is a comment
-class Person
+    count = 0x00002A
+    regex = /[abc]/
+    name = 'App'
 
-  attr_accessor :name
-
-  def initialize(attributes = {})
-    @name = attributes[:name]
-  end
-
-  def self.greet
-    "hello"
-  end
-end
-
-person1 = Person.new(:name =>"Chris")
-print Person::greet, " ", person1.name, "\\n"
-puts "another #{Person::greet} #{person1.name}"`}
+    function foo(parameter) {
+        const countSquared = count * count;
+        this.bar(countSquared);
+    }
+}`}
       </SyntaxHighlighter>
     </div>
   );

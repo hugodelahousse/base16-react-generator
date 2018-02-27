@@ -50,7 +50,18 @@ class App extends Component {
           return '-';
         return c;
       }).join('') + '.yaml';
-    fileDownload(yaml.dump(this.state), fileName);
+
+    let theme = {};
+    for (const [key, value] of Object.entries(this.state))
+    {
+      if (key.substring(0, 4) === 'base')
+        theme[key] = value.substring(1);
+      else
+        theme[key] = value;
+    }
+
+    console.log(theme);
+    fileDownload(yaml.dump(theme), fileName);
   };
 
   importScheme = (file) => {

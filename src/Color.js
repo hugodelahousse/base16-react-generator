@@ -24,7 +24,7 @@ export function Color({name, color, setColor})
   };
 
   return (
-    <div style={style}>
+    <div style={style} id={`${name}-picker`}>
       <input type="color"
              defaultValue={color}
              style={inputStyle}

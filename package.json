@@ -8,6 +8,7 @@
     "prop-types": "latest",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-favicon": "^0.0.13",
     "react-scripts": "1.1.1"
   },
   "scripts": {

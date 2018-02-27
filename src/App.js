@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Favicon from 'react-favicon';
 import {Color} from './Color.js'
 import {CodeExample} from "./CodeExample";
 import yaml from 'js-yaml';
@@ -51,9 +52,24 @@ class App extends Component {
 
   render()
   {
-    console.log(this.state["base00"]);
+    const canvas = document.createElement('canvas');
+    const colorSize = 10;
+    canvas.width = colorSize * 4;
+    canvas.height = colorSize * 4;
+    const ctx = canvas.getContext('2d');
+    Object.keys(defaultColors).map((name, i) => {
+      ctx.fillStyle = this.state[name];
+      return ctx.fillRect(
+        colorSize * (i % 4),
+        colorSize * Math.floor(i / 4),
+        colorSize,
+        colorSize);
+    });
+    const faviconUrl = ctx.canvas.toDataURL();
+
     return (
       <div className="App">
+        <Favicon url={faviconUrl}/>
         <table>
           <tbody>
           <tr>

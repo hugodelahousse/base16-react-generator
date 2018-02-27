@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 
 
 
-const inputStyle = {
-};
-
 export function Color({name, color, setColor, style})
 {
   const divStyle = {
@@ -19,7 +16,6 @@ export function Color({name, color, setColor, style})
     ...style,
   };
 
-  console.log(style);
   return (
     <div style={divStyle} id={`${name}-picker`}>
       <input type="color"
@@ -37,5 +33,5 @@ Color.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   setColor: PropTypes.func.isRequired,
-  style: PropTypes.string.isRequired,
+  style: PropTypes.object.isRequired,
 };

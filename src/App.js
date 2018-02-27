@@ -50,8 +50,23 @@ class App extends Component {
           return '-';
         return c;
       }).join('') + '.yaml';
-    console.log(fileName);
     fileDownload(yaml.dump(this.state), fileName);
+  };
+
+  importScheme = (file) => {
+    var reader = new FileReader();
+    reader.onload = () => {
+      console.log(this.state);
+      Object.entries(yaml.load(reader.result)).forEach(([key, value]) => {
+        console.log(key, value);
+        if (key.substr(0, 4) === 'base')
+          value = '#' + value;
+        if (this.state.hasOwnProperty(key))
+          this.setState({[key]: value});
+      });
+      console.log(this.state);
+    };
+    reader.readAsText(file);
   };
 
   render()
@@ -106,13 +121,23 @@ class App extends Component {
         </table>
         <CodeExample colors={this.state}/>
         <input type="text" placeholder="Scheme name" value={this.state.scheme}
-               style={inputStyle} onInput={(e) => this.setState({scheme: e.target.value})}/>
+               style={inputStyle} onChange={(e) => this.setState({scheme: e.target.value})}/>
         <br/>
         <input type="text" placeholder="Author" value={this.state.author}
-               style={inputStyle} onInput={(e) => this.setState({author: e.target.value})}/>
+               className="author-name"
+               style={inputStyle} onChange={(e) => this.setState({author: e.target.value})}/>
         <br/>
-        <button onClick={this.exportScheme}>
-            Download scheme !
+        <div
+             style={{backgroundColor: this.state.base0A, color: this.state.base07}}
+             className="file-input"
+        >
+          Import scheme
+          <input type="file" id='file-upload' onInput={(e) => this.importScheme(e.target.files[0])}
+                 accept=".yaml"
+          />
+        </div>
+        <button onClick={this.exportScheme} style={{backgroundColor: this.state.base0B, color: this.state.base07}}>
+          Export scheme
         </button>
       </div>
     );

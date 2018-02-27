@@ -40,12 +40,16 @@ class App extends Component {
 
   exportScheme = () =>
   {
-    const fileName = this.state.scheme.split('').map((c) => {
-      c = c.toLowerCase();
-      if (c < 'a' || c > 'z')
-        return '-';
-      return c;
-    }).join('') + '.yaml';
+    let fileName = "";
+    if (this.state.scheme.length === 0)
+      fileName = "Unnamed";
+    else
+      fileName = this.state.scheme.split('').map((c) => {
+        c = c.toLowerCase();
+        if (c < 'a' || c > 'z')
+          return '-';
+        return c;
+      }).join('') + '.yaml';
     console.log(fileName);
     fileDownload(yaml.dump(this.state), fileName);
   };
@@ -67,17 +71,23 @@ class App extends Component {
     });
     const faviconUrl = ctx.canvas.toDataURL();
 
+    const inputStyle = {
+      color: this.state.base05,
+      borderBottom: `2px solid ${this.state.base07}`
+    };
+
     return (
       <div className="App" style={{backgroundColor: this.state.base00, minHeight: '100vh'}}>
-        <h1 style={{color: this.state.base07}}>Base16 Generator</h1>
+        <h1 style={{color: this.state.base05}}>Base16 Generator</h1>
         <Favicon url={faviconUrl}/>
         <table>
           <tbody>
           <tr>
-            {backgroundColors.map((name) =>
+            {backgroundColors.map((name, index) =>
               <td key={name}>
                 <Color name={name}
                        color={this.state[name]}
+                       style={{color: index > 3 ? this.state.base02 : this.state.base05 }}
                        setColor={(value) => this.setState({[name]: value})} />
               </td>
             )}
@@ -86,6 +96,7 @@ class App extends Component {
             {accentColors.map((name) =>
               <td key={name}>
                 <Color name={name}
+                       style={{color: this.state.base07}}
                        color={this.state[name]}
                        setColor={(value) => this.setState({[name]: value})} />
               </td>
@@ -94,9 +105,11 @@ class App extends Component {
           </tbody>
         </table>
         <CodeExample colors={this.state}/>
-        <input type="text" placeholder="Scheme name" onInput={(e) => this.setState({scheme: e.target.value})}/>
+        <input type="text" placeholder="Scheme name" value={this.state.scheme}
+               style={inputStyle} onInput={(e) => this.setState({scheme: e.target.value})}/>
         <br/>
-        <input type="text" placeholder="Author" onInput={(e) => this.setState({author: e.target.value})}/>
+        <input type="text" placeholder="Author" value={this.state.author}
+               style={inputStyle} onInput={(e) => this.setState({author: e.target.value})}/>
         <br/>
         <button onClick={this.exportScheme}>
             Download scheme !

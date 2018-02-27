@@ -100,9 +100,9 @@ export function CodeExample({colors})
       "background": colors.base00,
       "color": colors.base05,
       "padding": "1.5em",
-      "font-size": "1.5em",
-      "text-align": "left",
-      "max-width": '750px',
+      "fontSize": "1.2em",
+      "textAlign": "left",
+      "maxWidth": '750px',
       "margin": 'auto',
     },
     "hljs-emphasis": {

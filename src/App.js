@@ -68,7 +68,7 @@ class App extends Component {
     const faviconUrl = ctx.canvas.toDataURL();
 
     return (
-      <div className="App">
+      <div className="App" style={{backgroundColor: this.state.base00, minHeight: '100vh'}}>
         <Favicon url={faviconUrl}/>
         <table>
           <tbody>

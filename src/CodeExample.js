@@ -1,46 +1,152 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SyntaxHighlighter from 'react-code-highlighter';
 
 
-export class CodeExample extends Component
+
+export function CodeExample({colors})
 {
-  render()
-  {
-    return (
-      <pre className="base00-background base05" style={{textAlign: 'left', backgroundColor: this.props.colors["base00"], color: this.props.colors["base05"], padding: '10px 20px', fontSize: '14px'}}>
-        <span style={{color: this.props.colors["base0E"]}}>require</span> <span style={{color: this.props.colors["base0B"]}}>"gem"</span>{"\n"}{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>string</span> = <span style={{color: this.props.colors["base0B"]}}>"base16"</span> {"\n"}
-        <span style={{color: this.props.colors["base08"]}}>symbol</span> = <span style={{color: this.props.colors["base0B"]}}>:base16</span> {"\n"}
-        <span style={{color: this.props.colors["base08"]}}>fixnum</span> = <span style={{color: this.props.colors["base09"]}}>0</span>{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>float</span>{"  "}= <span style={{color: this.props.colors["base09"]}}>0.00</span>{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>array</span>{"  "}= <span style={{color: this.props.colors["base0A"]}}>Array</span>.
-        <span style={{color: this.props.colors["base0D"]}}>new</span>{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>array</span>{"  "}= [
-        <span style={{color: this.props.colors["base0B"]}}>'chris'</span>, <span style={{color: this.props.colors["base09"]}}>85</span>]{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>hash</span>{"   "}= {"{"}<span style={{color: this.props.colors["base0B"]}}>"test"</span>
-        =&gt; <span style={{color: this.props.colors["base0B"]}}>"test"</span>{"}"}{"\n"}
-        <span style={{color: this.props.colors["base08"]}}>regexp</span> = <span style={{color: this.props.colors["base0C"]}}>/[abc]/</span>{"\n"}
-        {"\n"}
-        <span style={{color: this.props.colors["base03"]}}># This is a comment</span>{"\n"}
-        <span style={{color: this.props.colors["base0E"]}}>class</span> <span style={{color: this.props.colors["base0A"]}}>Person</span>{"\n"}
-        {"  "}{"\n"}{"  "}<span style={{color: this.props.colors["base0D"]}}>attr_accessor</span> <span style={{color: this.props.colors["base0B"]}}>:name</span>{"\n"}
-        {"  "}{"\n"}{"  "}<span style={{color: this.props.colors["base0E"]}}>def</span> <span style={{color: this.props.colors["base0D"]}}>initialize</span>
-        (<span style={{color: this.props.colors["base08"]}}>attributes</span> = {"{"}{"}"}){"\n"}
-        {"    "}<span style={{color: this.props.colors["base08"]}}>@name</span> = <span style={{color: this.props.colors["base08"]}}>attributes</span>
-        [<span style={{color: this.props.colors["base0B"]}}>:name</span>]{"\n"}
-        {"  "}<span style={{color: this.props.colors["base0E"]}}>end</span>{"\n"}
-        {"  "}{"\n"}{"  "}<span style={{color: this.props.colors["base0E"]}}>def</span> <span style={{color: this.props.colors["base0E"]}}>self</span>.
-        <span style={{color: this.props.colors["base0D"]}}>greet</span>{"\n"}
-        {"    "}<span style={{backgroundColor: this.props.colors["base02"]}}><span style={{color: this.props.colors["base0B"]}}>"hello"</span></span>{"\n"}
-        {"  "}<span style={{color: this.props.colors["base0E"]}}>end</span>{"\n"}<span style={{color: this.props.colors["base0E"]}}>end</span>{"\n"}
-        {"\n"}
-        <span style={{color: this.props.colors["base08"]}}>person1</span> = <span style={{color: this.props.colors["base0A"]}}>Person</span>.
-        <span style={{color: this.props.colors["base0D"]}}>new</span>(<span style={{color: this.props.colors["base0B"]}}>:name</span> =&gt;
-        <span style={{color: this.props.colors["base0B"]}}>"Chris"</span>){"\n"}
-        <span style={{color: this.props.colors["base0D"]}}>print</span> <span style={{color: this.props.colors["base0A"]}}>Person</span>::<span style={{color: this.props.colors["base0D"]}}>
-        greet</span>, <span style={{color: this.props.colors["base0B"]}}>" "</span>, <span style={{color: this.props.colors["base08"]}}>person1</span>.<span style={{color: this.props.colors["base0D"]}}>name</span>, <span style={{color: this.props.colors["base0B"]}}>"<span style={{color: this.props.colors["base09"]}}>\n</span>"</span>{"\n"}<span style={{color: this.props.colors["base0D"]}}>puts</span> <span style={{color: this.props.colors["base0B"]}}>"another </span><span style={{color: this.props.colors["base0F"]}}>#{"{"}</span><span style={{color: this.props.colors["base0A"]}}>Person</span>::<span style={{color: this.props.colors["base0D"]}}>greet</span><span style={{color: this.props.colors["base0F"]}}>{"}"}</span> <span style={{color: this.props.colors["base0F"]}}>#{"{"}</span><span style={{color: this.props.colors["base08"]}}>person1</span>.<span style={{color: this.props.colors["base0D"]}}>name</span><span style={{color: this.props.colors["base0F"]}}>{"}"}</span><span style={{color: this.props.colors["base0B"]}}>"</span>{"\n"}{"      "}</pre>
-    );
-  }
+  const style = {
+    "hljs-comment": {
+      "color": colors.base04
+    },
+    "hljs-quote": {
+      "color": colors.base04
+    },
+    "hljs-variable": {
+      "color": colors.base08
+    },
+    "hljs-template-variable": {
+      "color": colors.base08
+    },
+    "hljs-attribute": {
+      "color": colors.base08
+    },
+    "hljs-regexp": {
+      "color": colors.base08
+    },
+    "hljs-link": {
+      "color": colors.base08
+    },
+    "hljs-tag": {
+      "color": colors.base08
+    },
+    "hljs-name": {
+      "color": colors.base08
+    },
+    "hljs-selector-id": {
+      "color": colors.base08
+    },
+    "hljs-selector-class": {
+      "color": colors.base08
+    },
+    "hljs-number": {
+      "color": colors.base09
+    },
+    "hljs-meta": {
+      "color": colors.base09
+    },
+    "hljs-built_in": {
+      "color": colors.base09
+    },
+    "hljs-builtin-name": {
+      "color": colors.base09
+    },
+    "hljs-literal": {
+      "color": colors.base09
+    },
+    "hljs-type": {
+      "color": colors.base09
+    },
+    "hljs-params": {
+      "color": colors.base09
+    },
+    "hljs-string": {
+      "color": colors.base0B
+    },
+    "hljs-symbol": {
+      "color": colors.base0B
+    },
+    "hljs-bullet": {
+      "color": colors.base0B
+    },
+    "hljs-title": {
+      "color": colors.base0D
+    },
+    "hljs-section": {
+      "color": colors.base0D
+    },
+    "hljs-keyword": {
+      "color": colors.base0E
+    },
+    "hljs-selector-tag": {
+      "color": colors.base0E
+    },
+    "hljs-deletion": {
+      "color": colors.base00,
+      "display": "inline-block",
+      "width": "100%",
+      "backgroundColor": colors.base08
+    },
+    "hljs-addition": {
+      "color": colors.base00,
+      "display": "inline-block",
+      "width": "100%",
+      "backgroundColor": colors.base0B
+    },
+    "hljs": {
+      "display": "block",
+      "overflowX": "auto",
+      "background": colors.base00,
+      "color": colors.base05,
+      "padding": "1.5em",
+      "font-size": "1.5em",
+      "text-align": "left",
+      "max-width": '750px',
+      "margin": 'auto',
+    },
+    "hljs-emphasis": {
+      "fontStyle": "italic"
+    },
+    "hljs-strong": {
+      "fontWeight": "bold"
+    }
+  };
+
+  return (
+    <div style={{backgroundColor: colors.base00}}>
+      <SyntaxHighlighter language='ruby' style={style}>
+        {`require "gem"
+
+string = "base16"
+symbol = :base16
+fixnum = 0
+float  = 0.00
+array  = Array.new
+array  = ['chris', 85]
+hash   = {"test"=> "test"}
+regexp = /[abc]/
+
+# This is a comment
+class Person
+
+  attr_accessor :name
+
+  def initialize(attributes = {})
+    @name = attributes[:name]
+  end
+
+  def self.greet
+    "hello"
+  end
+end
+
+person1 = Person.new(:name =>"Chris")
+print Person::greet, " ", person1.name, "\\n"
+puts "another #{Person::greet} #{person1.name}"`}
+      </SyntaxHighlighter>
+    </div>
+  );
 }
 
 CodeExample.propTypes = {

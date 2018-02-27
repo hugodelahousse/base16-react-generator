@@ -15,8 +15,19 @@ body
 
 .App table
 {
-  display: inline-block;
+  table-layout: fixed;
+  width: 800px;
+  height: 200px;
+  margin: auto;
   border-collapse: collapse;
+}
+
+@media (max-width: 850px) {
+  .App table
+  {
+    width: 88vw;
+    height: 22vw;
+  }
 }
 
 .App h1
@@ -31,6 +42,13 @@ body
 {
   border: 3px solid white;
   padding: 0;
+  height: 50%;
+}
+
+.App table td div
+{
+  height: 100%;
+  vertical-align: center;
 }
 
 .App input

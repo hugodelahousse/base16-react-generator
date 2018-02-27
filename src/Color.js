@@ -7,17 +7,12 @@ import PropTypes from 'prop-types';
 export function Color({name, color, setColor, style})
 {
   const divStyle = {
-    position: 'relative',
-    display: 'inline-block',
-    width: '64px',
-    height: '64px',
-    lineHeight: '64px',
     backgroundColor: color,
     ...style,
   };
 
   return (
-    <div style={divStyle} id={`${name}-picker`}>
+    <td style={divStyle} id={`${name}-picker`}>
       <input type="color"
              className="color-picker"
              defaultValue={color}
@@ -26,7 +21,7 @@ export function Color({name, color, setColor, style})
                setColor(event.target.value);
              }}/>
       {name.substr(4)}
-    </div>);
+    </td>);
 }
 
 Color.propTypes = {

@@ -110,22 +110,20 @@ class App extends Component {
           <tbody>
           <tr>
             {backgroundColors.map((name, index) =>
-              <td key={name}>
                 <Color name={name}
+                       key={name}
                        color={this.state[name]}
                        style={{color: index > 3 ? this.state.base02 : this.state.base05 }}
                        setColor={(value) => this.setState({[name]: value})} />
-              </td>
             )}
           </tr>
           <tr>
             {accentColors.map((name) =>
-              <td key={name}>
                 <Color name={name}
+                       key={name}
                        style={{color: this.state.base07}}
                        color={this.state[name]}
                        setColor={(value) => this.setState({[name]: value})} />
-              </td>
             )}
           </tr>
           </tbody>

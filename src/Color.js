@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-
-
 export function Color({name, color, setColor, style})
 {
   const divStyle = {
@@ -12,16 +10,15 @@ export function Color({name, color, setColor, style})
   };
 
   return (
-    <td style={divStyle} id={`${name}-picker`}>
+    <div style={divStyle} id={`${name}-picker`} className="color-picker col col-4 col-md-2">
       <input type="color"
-             className="color-picker"
              defaultValue={color}
              style={style}
              onInput={(event) => {
                setColor(event.target.value);
              }}/>
-      {name.substr(4)}
-    </td>);
+      <div className="color-name">{name.substr(4)}</div>
+    </div>);
 }
 
 Color.propTypes = {

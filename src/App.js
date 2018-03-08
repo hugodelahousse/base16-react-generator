@@ -26,15 +26,12 @@ export const defaultColors = {
   base0F: "#F003EF",
 };
 
-const backgroundColors = Object.keys(defaultColors).slice(0, 8);
-const accentColors = Object.keys(defaultColors).slice(8);
-
 class App extends Component {
 
   constructor(props)
   {
     super(props);
-    this.state = {scheme: "Unnamed", author: "Unknown Author", ...defaultColors};
+    this.state = {scheme: "Unnamed Scheme", author: "Unknown Author", ...defaultColors};
   }
 
 
@@ -80,8 +77,7 @@ class App extends Component {
     reader.readAsText(file);
   };
 
-  render()
-  {
+  get faviconUrl() {
     const canvas = document.createElement('canvas');
     const colorSize = 10;
     canvas.width = colorSize * 4;
@@ -95,62 +91,74 @@ class App extends Component {
         colorSize,
         colorSize);
     });
-    const faviconUrl = ctx.canvas.toDataURL();
+    return ctx.canvas.toDataURL();
+  }
 
+  render()
+  {
     const inputStyle = {
       color: this.state.base05,
-      borderBottom: `2px solid ${this.state.base07}`
+      borderBottomColor: this.state.base07,
     };
 
     return (
-      <div className="App" style={{backgroundColor: this.state.base00, minHeight: '100vh'}}>
+      <div className="App container-fluid" style={{backgroundColor: this.state.base00}}>
         <h1 style={{color: this.state.base05}}>Base16 Generator</h1>
-        <Favicon url={faviconUrl}/>
-        <table>
-          <tbody>
-          <tr>
-            {backgroundColors.map((name, index) =>
-                <Color name={name}
-                       key={name}
-                       color={this.state[name]}
-                       style={{color: index > 3 ? this.state.base02 : this.state.base05 }}
-                       setColor={(value) => this.setState({[name]: value})} />
+        <Favicon url={this.faviconUrl}/>
+        <div className="color-grid container">
+          <div className="row">
+            {Object.keys(defaultColors).map((name, index) =>
+              <Color name={name}
+                     key={name}
+                     color={this.state[name]}
+                     style={{color: index < 4 ? this.state.base05 : this.state.base02 }}
+                     setColor={(value) => this.setState({[name]: value})} />
             )}
-          </tr>
-          <tr>
-            {accentColors.map((name) =>
-                <Color name={name}
-                       key={name}
-                       style={{color: this.state.base07}}
-                       color={this.state[name]}
-                       setColor={(value) => this.setState({[name]: value})} />
-            )}
-          </tr>
-          </tbody>
-        </table>
-        <CodeExample colors={this.state}/>
-        <input type="text" placeholder="Scheme name" value={this.state.scheme}
-               style={inputStyle} onChange={(e) => this.setState({scheme: e.target.value})}/>
-        <br/>
-        <input type="text" placeholder="Author" value={this.state.author}
-               className="author-name"
-               style={inputStyle} onChange={(e) => this.setState({author: e.target.value})}/>
-        <br/>
-        <div
-             style={{backgroundColor: this.state.base0A, color: this.state.base07}}
-             className="file-input"
-        >
-          Import scheme
-          <input type="file" id='file-upload' onInput={(e) => this.importScheme(e.target.files[0])}
-                 accept=".yaml"
-          />
+          </div>
         </div>
-        <button onClick={this.exportScheme} style={{backgroundColor: this.state.base0B, color: this.state.base07}}>
-          Export scheme
-        </button>
+        <CodeExample colors={this.state}/>
+        <div className="container">
+
+          <div className="row justify-content-around inputs">
+            <div className="col-md-6 col-sm-12 scheme-name-wrapper">
+              <input type="text" placeholder="Scheme name" value={this.state.scheme}
+                     style={inputStyle} onChange={(e) => this.setState({scheme: e.target.value})}/>
+              <span className="focus-border" style={{backgroundColor: this.state.base0E}} />
+            </div>
+
+
+            <div className="col-md-6 col-sm-12 scheme-author-wrapper">
+              <input type="text" placeholder="Author" value={this.state.author}
+                     className="author-name"
+                     style={inputStyle} onChange={(e) => this.setState({author: e.target.value})}/>
+              <span className="focus-border" style={{backgroundColor: this.state.base0E}} />
+            </div>
+          </div>
+
+          <div className="row justify-content-around buttons">
+            <div
+              className="file-input col-md-5 col-sm-12"
+            >
+              <div className="btn-lg" style={{backgroundColor: this.state.base0A, color: this.state.base07}}>
+                <input type="file" name="import-scheme" id="import-scheme" onInput={(e) => this.importScheme(e.target.files[0])}
+                       accept=".yaml" />
+                <span className="align-middle">Import scheme</span>
+              </div>
+            </div>
+            <div className="col-md-5 col-sm-12">
+              <button className="btn-lg"
+                      onClick={this.exportScheme}
+                      style={{backgroundColor: this.state.base0B, color: this.state.base07}}>
+                Export scheme
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
+
+
 
 export default App;
